@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
 import subprocess
 
 app = Flask(__name__)
@@ -9,9 +9,9 @@ def index():
 
 @app.route('/run_script', methods=['POST'])
 def run_script():
-    input_data = request.form['input_data']
-    result = subprocess.run(['python', 'script.py', input_data], stdout=subprocess.PIPE)
-    return result.stdout
+    script = subprocess.Popen(['python', 'script.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = script.communicate()
+    return "Script output: " + stdout.decode() + "\nError: " + stderr.decode()
 
 if __name__ == '__main__':
     app.run(debug=True)

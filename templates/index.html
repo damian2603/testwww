@@ -1,26 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-    <script>
-      function runScript() {
-        var inputData = document.getElementById("inputData").value;
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/run_script", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            document.getElementById("output").innerHTML = this.responseText;
-          }
-        };
-        xhr.send("input_data=" + inputData);
-      }
-    </script>
+    <title>Flask script runner</title>
 </head>
 <body>
-    <form>
-        <input type="text" id="inputData">
-        <button type="button" onclick="runScript()">Run Script</button>
+    <form action="/run_script" method="post">
+        <input type="submit" value="Run script">
     </form>
-    <div id="output"></div>
 </body>
 </html>
